@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Scanner;
 
 import static java.lang.Boolean.FALSE;
@@ -24,8 +25,8 @@ public class PracticaObligatoriaTema2RuedaYCantero {
         // Descuentos aplicables
         final float DESCUENTOEVENTO1 = 0.05f, DESCUENTOEVENTO2 = 0.07f, DESCUENTOEVENTO3 = 0.03f, IVA = 0.1f;
         // Las siguientes constantes son solo de estetica para el programa
-        final String BARRAH = "◘►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄►◄◘\n";
-        final String RENGLON = "◘                                                                                  ◘\n";
+        final String BARRAH = "||================================================================================||\n";
+        final String RENGLON = "||                                                                                ||\n";
 
         // Aqui se inician las variables.
 
@@ -38,7 +39,7 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                 NombreEvento = "", tiempoRestante = "", userIntro = "", passIntro = "", user = "Admin", password= "Admin1234";
 
         char respuestaSN = ' ';
-        int respuestaSegundoMenu, respuestaTercerMenu = 0, numEntradas = 0, entradaNumerada = 0, respuestaSegundoMenuConsulta = 0;
+        int respuestaSegundoMenu, respuestaTercerMenu = 0, numEntradas = 0, entradaNumerada = 0, respuestaSegundoMenuConsulta = 0, opcionTercerMenuConsulta;
         float descuentoEvento = 0, precioEvento = 0, totalEvento = 0;
         int entradasPlateaVendidas = 0, entradasButacaVendidas = 0, entradasAnfiVendidas = 0, diaHoy = 0, diaEvento = 0;
         int precioPlateaElegido = 0, precioButacaElegido = 0, precioAnfiElegido = 0, plateasRestantes = 0, butacasRestantes = 0, anfiteatroRestantes = 0;
@@ -69,23 +70,26 @@ public class PracticaObligatoriaTema2RuedaYCantero {
         int entradasPlateaEvento3 = 0, entradasButacaEvento3 = 0, entradasAnfiEvento3 = 0;
         //Inicio de la aplicación
         do {//Este bucle siempre estará activo salvo que el administrador decida cerrarlo
+            for (int i = 0; i < 90; i++) {
+                System.out.println();
+            }
             System.out.printf(BARRAH +
-                    "◘  ____  ____   __  ____  ____   __      __   __    _  _   __   ____  ____  ____   ◘\n" +
-                    "◘ (_  _)(  __) / _\\(_  _)(  _ \\ /  \\    / _\\ (  )  / )( \\ / _\\ (  _ \\(  __)(__  )  ◘\n" +
-                    "◘   )(   ) _) /    \\ )(   )   /(  O )  /    \\/ (_/\\\\ \\/ //    \\ )   / ) _)  / _/   ◘\n" +
-                    "◘  (__) (____)\\_/\\_/(__) (__\\_) \\__/   \\_/\\_/\\____/ \\__/ \\_/\\_/(__\\_)(____)(____)  ◘\n" +
-                    "◘                         __   __     __   __ _  ____   __                         ◘\n" +
-                    "◘                        / _\\ (  )   /  \\ (  ( \\/ ___) /  \\                        ◘\n" +
-                    "◘                       /    \\/ (_/\\(  O )/    /\\___ \\(  O )                       ◘\n" +
-                    "◘                       \\_/\\_/\\____/ \\__/ \\_)__)(____/ \\__/                        ◘\n" +
+                    "||  ____  ____   __  ____  ____   __      __   __    _  _   __   ____  ____  ____ ||\n" +
+                    "|| (_  _)(  __) / _\\(_  _)(  _ \\ /  \\    / _\\ (  )  / )( \\ / _\\ (  _ \\(  __)(__  )||\n" +
+                    "||   )(   ) _) /    \\ )(   )   /(  O )  /    \\/ (_/\\\\ \\/ //    \\ )   / ) _)  / _/ ||\n" +
+                    "||  (__) (____)\\_/\\_/(__) (__\\_) \\__/   \\_/\\_/\\____/ \\__/ \\_/\\_/(__\\_)(____)(____)||\n" +
+                    "||                         __   __     __   __ _  ____   __                       ||\n" +
+                    "||                        / _\\ (  )   /  \\ (  ( \\/ ___) /  \\                      ||\n" +
+                    "||                       /    \\/ (_/\\(  O )/    /\\___ \\(  O )                     ||\n" +
+                    "||                       \\_/\\_/\\____/ \\__/ \\_)__)(____/ \\__/                      ||\n" +
                     BARRAH);
             //Entramos en el menu inicial de la aplicación
-            System.out.printf("◘ Bienvenido a la aplicacion de venta de entradas del teatro Alvarez Alonso        ◘\n" +
-                    "◘ Elija la acción que desea realizar escribiendo la letra correspondiente:         ◘\n" +
+            System.out.printf("|| Bienvenido a la aplicacion de venta de entradas del teatro Alvarez Alonso      ||\n" +
+                    "|| Elija la acción que desea realizar escribiendo la letra correspondiente:       ||\n" +
                     RENGLON +
-                    "◘ A) Comprar entradas para un evento                                               ◘\n" +
-                    "◘ B) Comprobar estado de un evento                                                 ◘\n" +
-                    "◘ C) Entrar al modo administrativo                                                 ◘\n" +
+                    "|| A) Comprar entradas para un evento                                             ||\n" +
+                    "|| B) Comprobar estado de un evento                                               ||\n" +
+                    "|| C) Entrar al modo administrativo                                               ||\n" +
                     RENGLON + BARRAH + "\n");
             System.out.print("Escriba la letra correspondiente a la acción que desea realizar: ");
             respuestaPrimerMenu = sc.nextLine().toUpperCase();
@@ -96,13 +100,16 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                         venta = FALSE;
                         cicloMenuEvento = TRUE;
                         cicloMenuEntradas = FALSE;
+                        for (int i = 0; i < 90; i++) {
+                            System.out.println();
+                        }
                         System.out.printf(BARRAH + """
                                          
                                          Bienvenido, escoja del que le interesa comprar entradas                         
                                          utilizando el numero correspondiente:                                              
-                                         1) %s (%s)                                                        
-                                         2) %s (%s)                                            
-                                         3) %s (%s)                                                
+                                         1) %s \t\t\t(%s)                                                        
+                                         2) %s \t(%s)                                            
+                                         3) %s \t\t(%s)                                                
                                          """,
                                 NOMBREEVENTO1, FECHAEVENTO1, NOMBREEVENTO2, FECHAEVENTO2, NOMBREEVENTO3, FECHAEVENTO3);
                         System.out.printf("""
@@ -157,23 +164,30 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                 break;
                             default: //Error
                                 System.out.println("Por favor, escoja una opción de las disponibles");
-                                System.out.println("De vuelta al menu principal ");
+                                System.out.println("De vuelta al menu principal");
                                 cicloMenuEvento = FALSE;
                                 break;
                         }
+
                         while (cicloMenuEvento) {
-                            System.out.printf(BARRAH + "\n" +
-                                            " Aqui tiene un poco de información del evento escogido:                           \n" +
-                                            " La fecha de este evento sera el %s                                       \n" +
-                                            " El descuento por la compra anticipada(7 dias antes) es de %2.0f%%                    \n" +
-                                            " A todos estos precios se le aplicara el IVA (10%%)                                \n\n" +
-                                            "Las butacas disponibles son:                                                      \n" +
-                                            " 1) Platea \t(%2d€):\t\t%3d/140                                                \n" +
-                                            " 2) Butacas \t(%2d€):\t\t%3d/200                                                \n" +
-                                            " 3) Anfiteatro\t(%2d€):\t\t%3d/200                                                \n\n\n" +
-                                            " 0) Volver al menu anterior                                                       \n"
-                                            + BARRAH + "\n", (fechaEvento), (descuentoEvento * 100),
-                                    precioPlateaElegido, entradasPlateaVendidas, precioButacaElegido, entradasButacaVendidas, precioAnfiElegido, entradasAnfiVendidas);
+                            for (int i = 0; i < 90; i++) {
+                                System.out.println("");
+                            }
+                            System.out.printf("%s", BARRAH);
+                            System.out.printf("""
+                                        Aqui tiene un poco de información del evento escogido:                           
+                                        La fecha de este evento sera el %s                                       
+                                        El descuento por la compra anticipada (7 dias antes) es de %2.0f%%                    
+                                        A todos estos precios se le aplicara el IVA (10%%)                                
+                                        Las butacas disponibles son:                                                      
+                                           1) Platea \t(%2d$):\t\t%3d/140
+                                           2) Butacas \t(%2d$):\t\t%3d/200                                                
+                                           3) Anfiteatro\t(%2d$):\t\t%3d/200
+                                                                                     
+                                           0) Volver al menu anterior
+                                     %s                                                       """
+                                            , (fechaEvento), (descuentoEvento * 100),
+                                    precioPlateaElegido, entradasPlateaVendidas, precioButacaElegido, entradasButacaVendidas, precioAnfiElegido, entradasAnfiVendidas, BARRAH);
                             // Empezamos otro bucle que solo se cerrara cuando el usuario haya elegido correctamente la zona en la que sentarse
                             // Tambien puede elegir si volver al menu anterior y elegir otro evento
                             System.out.print("Introduzca el numero relacionado a la zona en la que desea sentarse: ");
@@ -217,10 +231,10 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                         precioEvento = precioPlateaElegido;
                                         if ((fechaHoy.isBefore(fechaEvento.minusDays(7)))){
                                             totalEvento = (((precioEvento) - (precioEvento * descuentoEvento)  + (((precioEvento) - (precioEvento * descuentoEvento)) * IVA)) * numEntradas);
-                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.2f\n", totalEvento);
+                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.2f$\n", totalEvento);
                                         } else{
                                             totalEvento = ((precioEvento) + (precioEvento * IVA)) * numEntradas;
-                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.02f\n", totalEvento);
+                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.02f$\n", totalEvento);
                                         }
                                         do {
                                             System.out.print("¿Cuanto va a pagar? ");
@@ -269,10 +283,10 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                         precioEvento = precioButacaElegido;
                                         if ((fechaHoy.isBefore(fechaEvento.minusDays(7)))){
                                             totalEvento = (((precioEvento) - (precioEvento * descuentoEvento)  + (((precioEvento) - (precioEvento * descuentoEvento)) * IVA)) * numEntradas);
-                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.2f\n", totalEvento);
+                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.2f$\n", totalEvento);
                                         } else{
                                             totalEvento = ((precioEvento) + (precioEvento * IVA)) * numEntradas;
-                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.02f\n", totalEvento);
+                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.02f$\n", totalEvento);
                                         }
                                         do {
                                             System.out.print("¿Cuanto va a pagar? ");
@@ -324,10 +338,10 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                         precioEvento = precioAnfiElegido;
                                         if ((fechaHoy.isBefore(fechaEvento.minusDays(7)))){
                                             totalEvento = (((precioEvento) - (precioEvento * descuentoEvento)  + (((precioEvento) - (precioEvento * descuentoEvento)) * IVA)) * numEntradas);
-                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.2f\n", totalEvento);
+                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.2f$\n", totalEvento);
                                         } else{
                                             totalEvento = ((precioEvento) + (precioEvento * IVA)) * numEntradas;
-                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.02f\n", totalEvento);
+                                            System.out.printf("El precio a pagar por la cantidad de entradas es: %.02f$\n", totalEvento);
                                         }
                                         do {
                                             System.out.print("¿Cuanto va a pagar? ");
@@ -360,7 +374,7 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                     cicloMenuEntradas = TRUE;
                                     break;
                                 default:
-                                    System.out.println("caca");
+                                    System.out.println("El valor ");
                                     break;
                             }
                             if (fechaHoy.isBefore(fechaEvento.minusDays(7))) {
@@ -460,28 +474,31 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                         System.out.print("cambio realizado");
                                         System.out.println();
                                         sc.nextLine();
+                                        for (int i = 0; i < 90; i++) {
+                                            System.out.println();
+                                        }
                                         if (descuento){
                                             System.out.printf("""
-                                                       %sAl precio de %1.02f se le realizara un descuento de %.02f %% 
+                                                       %s Al precio de %1.02f$ se le realizara un descuento de %.02f$ %% 
                                                         Se le suma el 10%% del IVA a su precio con descuento
-                                                        Siendo su pago de %.02f€ se le efectuara un cambio de %.02f
-                                                        La vuelta se le entregara de la sguiente manera: 
+                                                        Siendo su pago de %.02f$ se le efectuara un cambio de %.02f$
+                                                        La vuelta se le entregara de la siguiente manera: 
                                                         
                                                         """
                                                     , BARRAH, precioEvento, (descuentoEvento * 100), pago, auxCambio);
-                                            if(cont100>0) System.out.printf(" Billetes de 100€:\t\t %4d billetes\n", cont100);
-                                            if(cont50>0) System.out.printf(" Billetes de 50€:\t\t %4d billetes\n", cont50);
-                                            if(cont20>0) System.out.printf(" Billetes de 20€:\t\t %4d billetes\n", cont20);
-                                            if(cont10>0) System.out.printf(" Billetes de 10€:\t\t %4d billetes\n", cont10);
-                                            if(cont5>0) System.out.printf(" Billetes de 5€:\t\t %4d billetes\n", cont5);
-                                            if(cont2>0) System.out.printf(" Monedas de 2€:\t\t\t %4d monedas\n", cont2);
-                                            if(cont1>0) System.out.printf(" Monedas de 1€:\t\t\t%4d monedas\n", cont1);
-                                            if(cont050>0) System.out.printf(" Monedas de 50 cent:  \t %4d monedas\n", cont050);
-                                            if(cont020>0) System.out.printf(" Monedas de 20 cent: \t %4d monedas\n", cont020);
-                                            if(cont010>0) System.out.printf(" Monedas de 10 cent:\t %4d monedas\n", cont010);
-                                            if(cont05>0) System.out.printf(" Monedas de 5 cent: \t %4d monedas\n", cont05);
-                                            if(cont02>0) System.out.printf(" Monedas de 2 cent:  \t %4d monedas\n", cont02);
-                                            if(cont01>0) System.out.printf(" Monedas de 1 cent:  \t %4d monedas\n", cont01);
+                                            if(cont100>0) System.out.printf(" Billetes de 100$:\t\t %4d billetes\n", cont100);
+                                            if(cont50>0) System.out.printf(" Billetes de 50$:\t\t %4d billetes\n", cont50);
+                                            if(cont20>0) System.out.printf(" Billetes de 20$:\t\t %4d billetes\n", cont20);
+                                            if(cont10>0) System.out.printf(" Billetes de 10$:\t\t %4d billetes\n", cont10);
+                                            if(cont5>0) System.out.printf(" Billetes de 5$:\t\t %4d billetes\n", cont5);
+                                            if(cont2>0) System.out.printf(" Monedas de 2$:\t\t\t %4d monedas\n", cont2);
+                                            if(cont1>0) System.out.printf(" Monedas de 1$:\t\t\t%4d monedas\n", cont1);
+                                            if(cont050>0) System.out.printf(" Monedas de 50 cent:  \t\t %4d monedas\n", cont050);
+                                            if(cont020>0) System.out.printf(" Monedas de 20 cent: \t\t %4d monedas\n", cont020);
+                                            if(cont010>0) System.out.printf(" Monedas de 10 cent:\t\t %4d monedas\n", cont010);
+                                            if(cont05>0) System.out.printf(" Monedas de 5 cent: \t\t %4d monedas\n", cont05);
+                                            if(cont02>0) System.out.printf(" Monedas de 2 cent:  \t\t %4d monedas\n", cont02);
+                                            if(cont01>0) System.out.printf(" Monedas de 1 cent:  \t\t %4d monedas\n", cont01);
                                             System.out.printf("""
                                                    %s
                                                    """, BARRAH);
@@ -498,19 +515,19 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                                         
                                                         """
                                                     , BARRAH, precioEvento, pago, auxCambio);
-                                            if(cont100>0) System.out.printf(" Billetes de 100€:\t\t %4d billetes\n", cont100);
-                                            if(cont50>0) System.out.printf(" Billetes de 50€:\t\t %4d billetes\n", cont50);
-                                            if(cont20>0) System.out.printf(" Billetes de 20€:\t\t %4d billetes\n", cont20);
-                                            if(cont10>0) System.out.printf(" Billetes de 10€:\t\t %4d billetes\n", cont10);
-                                            if(cont5>0) System.out.printf(" Billetes de 5€:\t\t %4d billetes\n", cont5);
-                                            if(cont2>0) System.out.printf(" Monedas de 2€:\t\t\t %4d monedas\n", cont2);
-                                            if(cont1>0) System.out.printf(" Monedas de 1€:\t\t\t%4d monedas\n", cont1);
-                                            if(cont050>0) System.out.printf(" Monedas de 50 cent:  \t %4d monedas\n", cont050);
-                                            if(cont020>0) System.out.printf(" Monedas de 20 cent: \t %4d monedas\n", cont020);
-                                            if(cont010>0) System.out.printf(" Monedas de 10 cent:\t %4d monedas\n", cont010);
-                                            if(cont05>0) System.out.printf(" Monedas de 5 cent: \t %4d monedas\n", cont05);
-                                            if(cont02>0) System.out.printf(" Monedas de 2 cent:  \t %4d monedas\n", cont02);
-                                            if(cont01>0) System.out.printf(" Monedas de 1 cent:  \t %4d monedas\n", cont01);
+                                            if(cont100>0) System.out.printf(" Billetes de 100$:\t\t %4d billetes\n", cont100);
+                                            if(cont50>0) System.out.printf(" Billetes de 50$:\t\t %4d billetes\n", cont50);
+                                            if(cont20>0) System.out.printf(" Billetes de 20$:\t\t %4d billetes\n", cont20);
+                                            if(cont10>0) System.out.printf(" Billetes de 10$:\t\t %4d billetes\n", cont10);
+                                            if(cont5>0) System.out.printf(" Billetes de 5$:\t\t %4d billetes\n", cont5);
+                                            if(cont2>0) System.out.printf(" Monedas de 2$:\t\t\t %4d monedas\n", cont2);
+                                            if(cont1>0) System.out.printf(" Monedas de 1$:\t\t\t %4d monedas\n", cont1);
+                                            if(cont050>0) System.out.printf(" Monedas de 50 cent:  \t\t %4d monedas\n", cont050);
+                                            if(cont020>0) System.out.printf(" Monedas de 20 cent: \t\t %4d monedas\n", cont020);
+                                            if(cont010>0) System.out.printf(" Monedas de 10 cent:\t\t %4d monedas\n", cont010);
+                                            if(cont05>0) System.out.printf(" Monedas de 5 cent: \t\t %4d monedas\n", cont05);
+                                            if(cont02>0) System.out.printf(" Monedas de 2 cent:  \t\t %4d monedas\n", cont02);
+                                            if(cont01>0) System.out.printf(" Monedas de 1 cent:  \t\t %4d monedas\n", cont01);
                                             System.out.printf("""
                                                    %s
                                                    """, BARRAH);
@@ -526,45 +543,49 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                 cambio = auxCambio;
 
                             }
-
+                            for (int i = 0; i < 90; i++) {
+                                System.out.println();
+                            }
                             if (venta == TRUE) {
                                 for (int i = 1; i <= numEntradas; i++) {
                                     idEntrada = lugarElegido.charAt(0) + String.valueOf(entradaNumerada) + String.valueOf(fechaEvento.getYear()) + String.valueOf(fechaEvento.getMonthValue()) + String.valueOf(fechaEvento.getDayOfYear());
                                     System.out.printf(BARRAH +
-                                            "◘  ____  ____   __  ____  ____   __      __   __    _  _   __   ____  ____  ____   ◘\n" +
-                                            "◘ (_  _)(  __) / _\\(_  _)(  _ \\ /  \\    / _\\ (  )  / )( \\ / _\\ (  _ \\(  __)(__  )  ◘\n" +
-                                            "◘   )(   ) _) /    \\ )(   )   /(  O )  /    \\/ (_/\\\\ \\/ //    \\ )   / ) _)  / _/   ◘\n" +
-                                            "◘  (__) (____)\\_/\\_/(__) (__\\_) \\__/   \\_/\\_/\\____/ \\__/ \\_/\\_/(__\\_)(____)(____)  ◘\n" +
-                                            "◘                         __   __     __   __ _  ____   __                         ◘\n" +
-                                            "◘                        / _\\ (  )   /  \\ (  ( \\/ ___) /  \\                        ◘\n" +
-                                            "◘                       /    \\/ (_/\\(  O )/    /\\___ \\(  O )                       ◘\n" +
-                                            "◘                       \\_/\\_/\\____/ \\__/ \\_)__)(____/ \\__/                        ◘\n" +
+                                            "||  ____  ____   __  ____  ____   __      __   __    _  _   __   ____  ____  ____ ||\n" +
+                                            "|| (_  _)(  __) / _\\(_  _)(  _ \\ /  \\    / _\\ (  )  / )( \\ / _\\ (  _ \\(  __)(__  )||\n" +
+                                            "||   )(   ) _) /    \\ )(   )   /(  O )  /    \\/ (_/\\\\ \\/ //    \\ )   / ) _)  / _/ ||\n" +
+                                            "||  (__) (____)\\_/\\_/(__) (__\\_) \\__/   \\_/\\_/\\____/ \\__/ \\_/\\_/(__\\_)(____)(____)||\n" +
+                                            "||                         __   __     __   __ _  ____   __                       ||\n" +
+                                            "||                        / _\\ (  )   /  \\ (  ( \\/ ___) /  \\                      ||\n" +
+                                            "||                       /    \\/ (_/\\(  O )/    /\\___ \\(  O )                     ||\n" +
+                                            "||                       \\_/\\_/\\____/ \\__/ \\_)__)(____/ \\__/                      ||\n" +
                                             BARRAH);
-                                    System.out.printf(BARRAH + RENGLON + RENGLON);
-                                    System.out.printf("◘ ENTRADA NUMERO %3d de %3d \t\t\t\t\t\t\t\t\t\t\t\t\t    ◘\n", i, numEntradas);
-                                    System.out.printf("◘ Nombre del espectáculo: %s  \t\t\t\t\t\t\t\t\t\t\t\t◘\n", eventoElegido);
+                                    System.out.printf(BARRAH);
                                     System.out.printf(RENGLON);
-                                    System.out.printf("◘ Entrada para el evento del dia: %s\t\t\t\t\t\t\t\t\t\t◘\n", fechaEvento);
-                                    System.out.printf("◘ En el Teatro Alvarez Alonso \t\t\t\t\t\t\t\t\t\t\t\t\t\t◘\n" +
+                                    System.out.printf(RENGLON);
+                                    System.out.printf("||  ENTRADA NUMERO %3d de %3d \t\t\t\t\t\t\t  ||\n", i, numEntradas);
+                                    System.out.printf("||  Nombre del espectáculo: %s  \t\t\t\t\t\t  ||\n", eventoElegido);
+                                    System.out.printf(RENGLON);
+                                    System.out.printf("||  Entrada para el evento del dia: %s\t\t\t\t\t  ||\n", fechaEvento);
+                                    System.out.printf("||  En el Teatro Alvarez Alonso \t\t\t\t\t\t  ||\n" +
                                             "%s%s%s" +
-                                            "◘ Lugar elegido: \t%12s\t\t\t\t\t\t\t\t\t\t\t\t\t◘\n" +
-                                            "◘ Entrada nº: \t\t%12d \t\t\t\t\t\t\t\t\t\t\t\t\t◘\n" +
-                                            "◘ ID Entrada: \t\t%12s \t\t\t\t\t\t\t\t\t\t\t\t\t◘\n" +
-                                            "%s%s%s", RENGLON, BARRAH, RENGLON, lugarElegido, entradaNumerada, idEntrada, RENGLON, BARRAH, RENGLON);
+                                            "||  Lugar elegido: \t\t%12s\t\t\t\t\t  ||\n" +
+                                            "||  Entrada nº: \t\t%12d \t\t\t\t\t  ||\n" +
+                                            "||  ID Entrada: \t\t%12s \t\t\t\t\t  ||\n" +
+                                            "%s%s%s", "", BARRAH, "", lugarElegido, entradaNumerada, idEntrada, "", BARRAH, "");
                                     if (!descuento) { //No se realiza descuento
-                                        System.out.printf("◘ Entrada no anticipada\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t◘\n" +
-                                                "◘ Precio de la entrada de:\t\t\t\t\t\t\t\t\t%5.2f €\t\t\t\t\t◘\n" +
-                                                "◘ Pago total a realizar:\t\t\t\t\t\t\t\t\t%5.2f €\t\t\t\t\t◘\n" +
+                                        System.out.printf("||  Entrada no anticipada\t\t\t\t\t\t\t  || \n" +
+                                                "||  Precio de la entrada de:\t\t\t%5.2f $\t\t\t\t  ||\n" +
+                                                "||  Pago total a realizar:\t\t\t%5.2f $\t\t\t\t  ||\n" +
 
-                                                "%s%s\n", precioEvento, (precioEvento * numEntradas), RENGLON, BARRAH);
+                                                "%s%s\n", precioEvento, (precioEvento * numEntradas), "", BARRAH);
                                     } else { // Se realiza el descuento
-                                        System.out.printf("◘ Por su compra anticipada recibira un descuento de: \t\t%5.2f %%\t\t\t\t\t◘\n" +
-                                                "◘ Precio de la entrada de: \t\t\t\t\t\t\t\t\t%5.2f €\t\t\t\t\t◘\n" +
-                                                "◘ Precio de la entrada con descuento:\t\t\t\t\t\t%5.2f €\t\t\t\t\t◘\n" +
-                                                "◘ Pago total a realizar:\t\t\t\t\t\t\t\t\t%5.2f €\t\t\t\t\t◘\n" +
+                                        System.out.printf("||  Por su compra anticipada recibira un descuento de: \t%5.2f %%\t\t\t  ||\n" +
+                                                "||  Precio de la entrada de: \t\t\t\t%5.2f €\t\t\t  ||\n" +
+                                                "||  Precio de la entrada con descuento:\t\t\t%5.2f €\t\t\t  ||\n" +
+                                                "||  Pago total a realizar:\t\t\t\t%5.2f €\t\t\t  ||\n" +
                                                 "%s%s\n", (descuentoEvento * 100), precioEvento, (precioEvento -
                                                 (precioEvento * descuentoEvento)), ((precioEvento -
-                                                (precioEvento * descuentoEvento)) * numEntradas), RENGLON, BARRAH);
+                                                (precioEvento * descuentoEvento)) * numEntradas), "", BARRAH);
 
                                     }
                                     entradaNumerada++;
@@ -574,14 +595,16 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                 if (respuestaSegundoMenu == 1) totalRecadudadoEvento1 += totalEvento;
                                 if (respuestaSegundoMenu == 2) totalRecadudadoEvento2 += totalEvento;
                                 if (respuestaSegundoMenu == 3) totalRecadudadoEvento3 += totalEvento;
-
+                                for (int i = 0; i < 90; i++) {
+                                    System.out.println();
+                                }
                                 System.out.printf(BARRAH +
                                         " Desea realizar otra compra de este evento:\n\n" +
 
                                         " 1) Quiero comprar más entradas de este evento\n" +
                                         " 2) Quiero elegir otro evento\n" +
                                         " 3) Quiero volver al menu principal\n\n" +
-                                        " Elija una opción mediante el numero correspondiente: ");
+                                        " Elija una opción mediante el numero correspondiente: \n" + BARRAH);
                                 respuestaTrasVenta = sc.nextLine();
                                 cont100 = 0; cont50 = 0; cont20 = 0; cont10 = 0; cont5 = 0; cont2 = 0; cont1 = 0; cont050 = 0;
                                 cont020 = 0; cont010 = 0; cont05 = 0; cont02 = 0; cont01 = 0;
@@ -633,13 +656,19 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                     break;
                 case "B":
                     do {
+
+
+                    do {
+                        for (int i = 0; i < 90; i++) {
+                            System.out.println();
+                        }
                         System.out.printf(BARRAH + """
                                          
                                          Escoja de que evento le interesa consultar entradas                         
                                          utilizando el numero correspondiente:                                              
-                                         1) %s (%s)                                                        
-                                         2) %s (%s)                                            
-                                         3) %s (%s)                                                
+                                         1) %s \t\t\t(%s)                                                        
+                                         2) %s \t(%s)                                            
+                                         3) %s \t\t(%s)                                                
                                          """,
                                 NOMBREEVENTO1, FECHAEVENTO1, NOMBREEVENTO2, FECHAEVENTO2, NOMBREEVENTO3, FECHAEVENTO3);
                         System.out.printf("""
@@ -694,8 +723,11 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                     }else if (diaEvento - diaHoy == 0){
                         tiempoRestante = "Es hoy!";
                     }else if (diaEvento - diaHoy > 0) tiempoRestante = "El evento será en " + String.valueOf(diaEvento - diaHoy) + " días.";
+                    for (int i = 0; i < 90; i++) {
+                        System.out.println();
+                    }
                     System.out.printf(BARRAH + """
-                                    \t\t\t\t\tInformación del evento "%s"
+                                    \t\t\tInformación del evento "%s"
                                     Fecha del Evento: %s
                                     Tiempo restante para el evento: %s
                                     Cantidad de asientos restantes: 
@@ -704,15 +736,24 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                     Anfiteatro:\t %3s/200
                                     """,
                             NombreEvento, fechaEvento, tiempoRestante, plateasRestantes, butacasRestantes, anfiteatroRestantes);
-                    if (diaEvento - diaHoy < 7 && diaEvento - diaHoy >= 0) System.out.println("No recibirás el descuento de un " + descuentoEvento * 100);
+                    if (diaEvento - diaHoy < 7 && diaEvento - diaHoy >= 0) {
+                        System.out.println();
+                        System.out.println("No recibirás el descuento de un " + (int)(descuentoEvento * 100) + "%");
+                        System.out.println(BARRAH);
+                    }
                     System.out.println("Pulsa ENTER para continuar");
                     sc.nextLine();
-                    System.out.print("""
+                    for (int i = 0; i < 90; i++) {
+                        System.out.println();
+                    }
+                    System.out.print(BARRAH + """
                             Elige que deseas hacer ahora
                             1) Volver al menú de consulta de eventos
                             2) Volver al menú principal
-                            """);
-                    break;
+                            """ + BARRAH);
+                    opcionTercerMenuConsulta = Integer.parseInt(sc.nextLine());
+                    } while (opcionTercerMenuConsulta != 2);
+                        break;
                 case "C": // Modo administrador
                     boolean acceso = FALSE, bucleMenuAdmin = TRUE;
                     String respuestaMenuAdmin = "";
@@ -733,21 +774,27 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                     do {//Este bucle se cerrara cuando
                         System.out.print(BARRAH);
                         //Entramos en el menu inicial de la aplicación
-                        System.out.printf("◘ Bienvenido a la aplicacion de venta de entradas del teatro Alvarez Alonso        ◘\n" +
-                                "◘ Elija la acción que desea realizar escribiendo la letra correspondiente:         ◘\n" +
-                                RENGLON +
-                                "◘ A) Consultar los ingresos totales por evento                                     ◘\n" +
-                                "◘ B) Consultar las monedas restantes del cambio                                    ◘\n" +
-                                "◘ C) Cambiar USUARIO y CONTRASEÑA                                                  ◘\n" +
-                                "◘ D) Cerrar programa                                                               ◘\n" +
-                                RENGLON +
-                                "◘ Z) Salir del modo administrador                                                  ◘\n" +
+                        for (int i = 0; i < 90; i++) {
+                            System.out.println();
+                        }
+                        System.out.printf(BARRAH + "  Bienvenido a la aplicacion de venta de entradas del teatro Alvarez Alonso         \n" +
+                                "  Elija la acción que desea realizar escribiendo la letra correspondiente:          \n" +
+                                "\n" +
+                                "  A) Consultar los ingresos totales por evento                                      \n" +
+                                "  B) Consultar las monedas restantes del cambio                                     \n" +
+                                "  C) Cambiar USUARIO y CONTRASEÑA                                                   \n" +
+                                "  D) Cerrar programa                                                                \n" +
+                                "\n" +
+                                "  Z) Salir del modo administrador                                                   \n" +
                                 BARRAH + "\n");
                         System.out.print("Escriba la letra correspondiente a la acción que desea realizar: ");
                         respuestaMenuAdmin = sc.nextLine().toUpperCase();
                         switch (respuestaMenuAdmin){
                             case "A":
                                 do {
+                                    for (int i = 0; i < 90; i++) {
+                                        System.out.println();
+                                    }
                                     System.out.printf(BARRAH + """
                                          
                                          Escoja de que evento le interesa consultar                         
@@ -785,7 +832,11 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                             System.out.println("El número introducido no es válido, por favor introduzca otro");
                                             break;
                                     }
-                                    System.out.printf("""
+                                    for (int i = 0; i < 90; i++) {
+                                        System.out.println();
+                                    }
+                                    if (seleccionEvento != 0){
+                                        System.out.printf("""
                                             %s
                                             
                                             El evento %s con fecha el dia: %s
@@ -793,22 +844,27 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                                                                                                                   
                                             %s
                                             """, BARRAH, eventoElegido, fechaEvento, totalEvento, BARRAH);
-
+                                        System.out.println("Pulsa ENTER para continuar");
+                                        sc.nextLine();
+                                    }
                                 }while (seleccionEvento != 0);
                                 break;
                             case "B":
+                                for (int i = 0; i < 90; i++) {
+                                    System.out.println();
+                                }
                                 System.out.printf("""
                                         %s%s
                                         A Continuación se diran las monedas que 
                                         quedan y el cambio total\n
                                         
-                                        Billetes de 100e:\t\t%5d
-                                        Billetes de 50e:\t\t%5d
-                                        Billetes de 20e:\t\t%5d
-                                        Billetes de 10e:\t\t%5d
-                                        Billetes de 5e:\t\t\t%5d
-                                        Monedas de 2e:\t\t\t%5d
-                                        Monedas de 1e:\t\t\t%5d
+                                        Billetes de 100$:\t\t%5d
+                                        Billetes de 50$:\t\t%5d
+                                        Billetes de 20$:\t\t%5d
+                                        Billetes de 10$:\t\t%5d
+                                        Billetes de 5$:\t\t\t%5d
+                                        Monedas de 2$:\t\t\t%5d
+                                        Monedas de 1$:\t\t\t%5d
                                         Monedas de 50cent:\t\t%5d
                                         Monedas de 20cent:\t\t%5d
                                         Monedas de 10cent:\t\t%5d
@@ -816,15 +872,18 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                         Monedas de 2cent:\t\t%5d
                                         Monedas de 1cent:\t\t%5d
                                         
-                                        Total de cambio:....... %8.2f
+                                        Total de cambio:....... %8.2f$
                                         %s%s
                                         
                                         Pulse Enter para continuar ...                               
-                                        """,BARRAH,RENGLON, billete100,billetes50,billetes20,billetes10,billetes5,
-                                        monedas2,monedas1,monedas50,monedas20,monedas10,monedas05,monedas02,monedas1, cambioDisponible,RENGLON,BARRAH);
+                                        """,BARRAH,"", billete100,billetes50,billetes20,billetes10,billetes5,
+                                        monedas2,monedas1,monedas50,monedas20,monedas10,monedas05,monedas02,monedas1, cambioDisponible,"",BARRAH);
                                 sc.nextLine();
                                 break;
                             case "C":
+                                for (int i = 0; i < 90; i++) {
+                                    System.out.println();
+                                }
                                 System.out.println("Introduzca el nuevo nombre de usuario");
                                 user = sc.nextLine();
                                 System.out.println();
@@ -832,6 +891,9 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                 password = sc.nextLine();
                                 break;
                             case "D":
+                                for (int i = 0; i < 90; i++) {
+                                    System.out.println();
+                                }
                                 System.out.print("Cerrando el programa");
                                 Thread.sleep(500);
                                 System.out.print(".");
@@ -843,6 +905,9 @@ public class PracticaObligatoriaTema2RuedaYCantero {
                                 cerrarPrograma = TRUE;
                                 break;
                             case "Z":
+                                for (int i = 0; i < 90; i++) {
+                                    System.out.println();
+                                }
                                 bucleMenuAdmin = FALSE;
                                 System.out.println("Adios administrador.");
                                 sc.nextLine();
