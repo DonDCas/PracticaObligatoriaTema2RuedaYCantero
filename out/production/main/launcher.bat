@@ -1,0 +1,3 @@
+java PracticaObligatoriaTema2RuedaYCantero.java
+
+pausa

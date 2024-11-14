@@ -60,7 +60,7 @@ public class PracticaObligatoriaTema2RuedaYCantero {
         //Aqui estan las variables para los eventos
         //Evento 1
         //Variables de Entradas vendidas del evento 1
-        int entradasPlateaEvento1 = 130, entradasButacaEvento1 = 10, entradasAnfiEvento1 = 0;
+        int entradasPlateaEvento1 = 0, entradasButacaEvento1 = 0, entradasAnfiEvento1 = 0;
         //Evento 2
         //Variables de Entradas vendidas del evento 2
         int entradasPlateaEvento2 = 0, entradasButacaEvento2 = 0, entradasAnfiEvento2 = 0;
